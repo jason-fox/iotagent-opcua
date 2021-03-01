@@ -28,10 +28,16 @@ services:
       - ./AGECONF:/opt/iotagent-opcua/conf
       - ./certificates:/opt/iotagent-opcua/certificates
     command: /usr/bin/tail -f /var/log/lastlog
+    environment:
+      - IOTA_REGISTRY_TYPE=mongodb #Whether to hold IoT device info in memory or in a database
+      - IOTA_LOG_LEVEL=DEBUG # The log level of the IoT Agent
+      - IOTA_CB_NGSI_VERSION=ld # use NGSI-LD when sending updates for active attributes
+      - IOTA_JSON_LD_CONTEXT=https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld
+      - IOTA_FALLBACK_TENANT=opcua_car
 
   iotmongo:
     hostname: iotmongo
-    image: mongo:3.4
+    image: mongo:4.2
     networks:
       - iotnet
     volumes:
@@ -41,21 +47,23 @@ services:
   ################ OCB ################
 
   orion:
+    image: fiware/orion-ld:0.6.1
     hostname: orion
-    image: fiware/orion:latest
-    networks:
-      - hostnet
-      - ocbnet
-    ports:
-      - "1026:1026"
+    container_name: fiware-orion
     depends_on:
       - orion_mongo
-    #command: -dbhost mongo
-    entrypoint: /usr/bin/contextBroker -fg -multiservice -ngsiv1Autocast -statCounters -dbhost mongo -logForHumans -logLevel DEBUG -t 255
+    networks:
+      - ocbnet
+    ports:
+      - "1026:1026" # localhost:1026
+    command: -dbhost orion_mongo -logLevel DEBUG -forwarding
+    healthcheck:
+      test: curl --fail -s http://orion:1026/version || exit 1
+      interval: 5s
 
   orion_mongo:
     hostname: orion_mongo
-    image: mongo:3.4
+    image: mongo:4.2
     networks:
       ocbnet:
         aliases:
