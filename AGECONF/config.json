@@ -1,5 +1,7 @@
 {
-  "logLevel" : "INFO",
+  "logLevel" : "DEBUG",
+  "multiCore" : true,
+  "relaxTemplateValidation":true,
   "contextBroker" : {
     "host" : "orion",
     "port" : 1026
