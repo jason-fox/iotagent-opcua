@@ -1,0 +1,12 @@
+{
+    "@context": {
+        "type": "@type",
+        "id": "@id",
+        "ngsi-ld": "https://uri.etsi.org/ngsi-ld/",
+        "engineering": "https://www.eng.it",
+		"Acceleration" : "engineering:acceleration",
+		"EngineStopped": "https://w3id.org/saref#State",
+		"Engine_Temperature" : "https://w3id.org/saref#temperature",
+		"Engine_Oxigen" : "engineering:oxygen"
+	}
+}
