@@ -42,7 +42,7 @@
   "dependencies": {
     "async": "^1.5.2",
     "express": "^4.16.3",
-    "iotagent-node-lib": "https://github.com/telefonicaid/iotagent-node-lib.git",
+    "iotagent-node-lib": "git://github.com/jason-fox/iotagent-node-lib.git#debug",
     "logops": "^1.0.0",
     "node-opcua": "^2.31.0",
     "npm": "^6.14.5",
