@@ -47,7 +47,7 @@ services:
   ################ OCB ################
 
   orion:
-    image: fiware/orion-ld:0.6.1
+    image: fiware/orion-ld:0.7.0
     hostname: orion
     container_name: fiware-orion
     depends_on:
