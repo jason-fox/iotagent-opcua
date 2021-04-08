@@ -29,7 +29,9 @@ services:
     command: /usr/bin/tail -f /var/log/lastlog
     environment:
       - IOTA_REGISTRY_TYPE=mongodb #Whether to hold IoT device info in memory or in a database
-      - IOTA_LOG_LEVEL=DEBUG # The log level of the IoT Agent
+      - IOTA_LOG_LEVEL=INFO # The log level of the IoT Agent
+      - IOTA_MONGO_HOST=iotmongo # The host name of MongoDB
+      - IOTA_MONGO_DB=iotagent_opcua # The name of the database used in mongoDB
       - IOTA_CB_NGSI_VERSION=ld # use NGSI-LD when sending updates for active attributes
       - IOTA_JSON_LD_CONTEXT=https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld
       - IOTA_FALLBACK_TENANT=opcua_car
